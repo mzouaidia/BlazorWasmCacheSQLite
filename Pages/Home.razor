@@ -1,0 +1,18 @@
+﻿@page "/"
+
+<PageTitle>ToDo - lista zadań</PageTitle>
+
+<div class="todo-container">
+    <div class="todo-input">
+            <input type="text" placeholder="Wpisz treść zadania" maxlength="50" @bind="_todoInput" />
+            <button @onclick="@(async () => await Add())" disabled="@(_todoInput.Length == 0)">Add</button>
+    </div>
+
+    @foreach (var it in _taskList)
+    {
+        <div class="todo-item">
+            <div class="todo-item-text @(@it.IsDone ? "complete" : string.Empty)" @onclick="@(async () => await Done(@it.Id.ToString()))">@it.Task</div>
+            <div class="todo-item-close" @onclick="@(async () => await Remove(@it.Id.ToString()))">&times;</div>
+        </div>
+    }
+</div>
